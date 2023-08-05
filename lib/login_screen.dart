@@ -35,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void loginok() {
     setState(() {
-      loading = false;
+      loading = true;
     });
     _auth
         .signInWithEmailAndPassword(
@@ -45,6 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() {
         loading = false;
       });
+        Get.to(() => okScreen());
     }).onError((error, stackTrace) {
       debugPrint(error.toString());
       Toasts().toastsMessage(error.toString());
