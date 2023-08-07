@@ -3,25 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_firebase/Components/appbar.dart';
 import 'package:flutter_firebase/Components/button.dart';
+import 'package:flutter_firebase/constants/constants.dart';
+import 'package:flutter_firebase/firestore/firestore_list_screen.dart';
 import 'package:flutter_firebase/utilis/toasts.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as path;
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
-class okScreen extends StatefulWidget {
-  const okScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<okScreen> createState() => okScreenState();
+  State<HomeScreen> createState() => HomeScreenState();
 }
 
-class okScreenState extends State<okScreen> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final FirebaseStorage _storage = FirebaseStorage.instance;
-  final ImagePicker _imagePicker = ImagePicker();
+class HomeScreenState extends State<HomeScreen> {
   File? _image;
   bool loading = false;
 
@@ -46,8 +46,8 @@ class okScreenState extends State<okScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Upload screen'),
+      appBar: CustomAppBar(
+        title: AppText.homeAppbarText,
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -78,15 +78,15 @@ class okScreenState extends State<okScreen> {
                   ),
                 ),
               ),
-              //if (_image != null) Image.file(_image!),
+              if (_image != null) Image.file(_image!),
               SizedBox(
-                height: 10,
+                height: 50,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 50),
                 child: RoundButton(
                   onTap: () async {
-                    //await uploadImage();
+                  
                     firebase_storage.Reference ref = firebase_storage
                         .FirebaseStorage.instance
                         .ref('/foldername' +
@@ -104,7 +104,7 @@ class okScreenState extends State<okScreen> {
                         setState(() {
                           loading = false;
                         });
-                        Toasts().toastsMessage('uploaded');
+                        Toasts().toastsMessage('uploaded',);
                       }).onError((error, stackTrace) {
                         print(error.toString());
                         setState(() {
@@ -121,6 +121,12 @@ class okScreenState extends State<okScreen> {
                   title: 'Upload Image',
                 ),
               ),
+              SizedBox(height: 10,),
+              ElevatedButton(
+                  onPressed: () {
+                    Get.to(() => PostScreen());
+                  },
+                  child: Text('Go to FireStore Practice'))
             ],
           ),
         ),

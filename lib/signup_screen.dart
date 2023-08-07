@@ -5,7 +5,7 @@ import 'package:flutter_firebase/Components/button.dart';
 import 'package:flutter_firebase/Components/textfield.dart';
 import 'package:flutter_firebase/constants/constants.dart';
 import 'package:flutter_firebase/login_screen.dart';
-import 'package:flutter_firebase/ok_screen.dart';
+import 'package:flutter_firebase/home_screen.dart';
 import 'package:flutter_firebase/utilis/toasts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:get/get.dart';
@@ -56,9 +56,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
       setState(() {
         loading = false;
       });
-      Get.to(() => okScreen());
+      Get.to(() => HomeScreen());
     }).onError((error, stackTrace) {
-      Toasts().toastsMessage(error.toString());
+      Toasts().toastsMessage(error.toString(),false, success: false);
       setState(() {
         loading = false;
       });
@@ -80,11 +80,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
         final UserCredential userCredential = await _auth.signInWithCredential(credential);
         final User? user = userCredential.user;
         if (user != null) {
-          Get.to(() => okScreen());
+          Get.to(() => HomeScreen());
         }
       }
     } catch (error) {
-      Toasts().toastsMessage('Google Sign-In Failed: ${error.toString()}');
+      Toasts().toastsMessage('Google Sign-In Failed: ${error.toString()}',false, success: false);
     }
 
     setState(() {
@@ -94,7 +94,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
+    
 
     return Scaffold(
       appBar: const CustomAppBar(title: AppText.signUpAppbarText),
@@ -102,15 +102,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
         child: Container(
           child: Column(
             children: [
-              Container(
-                alignment: Alignment.center,
-                height: 150,
-                width: screenWidth,
-                child: Lottie.asset(AppImages.loginPageImage),
-              ),
+             SizedBox(height:150,),
               SingleChildScrollView(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  padding: const EdgeInsets.symmetric(horizontal: 30 ),
                   child: CustomTextFormField(
                     controller: userNameController,
                     hintText: 'User Name',
@@ -121,7 +116,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       return null;
                     },
                     keyboardType: TextInputType.name,
-                    suffixIcon: Icon(Icons.person),
+                    prefixIcon: Icon(Icons.person, color: AppColors.colorGreen,),
                   ),
                 ),
               ),
@@ -139,7 +134,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       return null;
                     },
                     keyboardType: TextInputType.emailAddress,
-                    suffixIcon: Icon(Icons.email),
+                    prefixIcon: Icon(Icons.email, color: AppColors.colorGreen,),
                   ),
                 ),
               ),
@@ -157,7 +152,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       return null;
                     },
                     keyboardType: TextInputType.text,
-                    suffixIcon: Icon(Icons.lock_open),
+                    prefixIcon: Icon(Icons.lock_open, color: AppColors.colorGreen,),
                   ),
                 ),
               ),
@@ -189,7 +184,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 },
                 child: const Padding(
                   padding: EdgeInsets.all(10),
-                  child: Text('Already have an account SignIn'),
+                  child: Text('Already have an account? SignIn'),
                 ),
               ),
             ],

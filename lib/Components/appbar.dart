@@ -14,15 +14,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: AppColors.colorGreen,
-      leading: IconButton(
-        icon: Icon(Icons.arrow_back_ios_new, color: Colors.white),
-        onPressed: () {
-          Navigator.pop(context);
-        },
-      ),
-      title: Text(
-        title,
-        style: const TextStyle(color: Colors.white),
+      automaticallyImplyLeading: false, 
+
+      title: Center(
+        child: Text(
+          title,
+          style: const TextStyle(color: Colors.white),
+        ),
       ),
     );
   }

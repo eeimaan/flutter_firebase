@@ -5,7 +5,7 @@ import '../constants/constants.dart';
 
 class RoundButton extends StatelessWidget {
   final String title ;
-  final VoidCallback onTap ;
+  final VoidCallback? onTap ;
   final bool loading ;
   const RoundButton({Key? key ,
     required this.title,
@@ -24,7 +24,7 @@ class RoundButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(10)
         ),
         child: Center(child: loading ? CircularProgressIndicator(strokeWidth: 3,color: Colors.white,) :
-        Text(title, style: TextStyle(color: Colors.white),),),
+        Text(title, style: TextStyle(color: Colors.white , fontSize: 16),),),
       ),
     );
   }

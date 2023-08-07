@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase/constants/constants.dart';
 
 class CustomTextFormField extends FormField<String> {
   CustomTextFormField({
@@ -8,7 +9,6 @@ class CustomTextFormField extends FormField<String> {
     TextInputType keyboardType = TextInputType.text,
     String? hintText,
     int maxLines = 1,
-    Widget? suffixIcon,
     Widget? prefixIcon,
   }) : super(
           key: key,
@@ -20,12 +20,25 @@ class CustomTextFormField extends FormField<String> {
               maxLines: maxLines,
               decoration: InputDecoration(
                 hintText: hintText,
+               
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
+                  borderSide: BorderSide(color: AppColors.colorGreen),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  borderSide: BorderSide(color: AppColors.colorGreen),
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  borderSide: BorderSide(color: Colors.red),
+                ),
+                focusedErrorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  borderSide: BorderSide(color: Colors.red),
                 ),
                 errorText: state.errorText,
-                suffixIcon: suffixIcon,
-                prefixIcon: prefixIcon, 
+                prefixIcon :prefixIcon,
               ),
             );
           },

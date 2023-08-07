@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_firebase/Components/button.dart';
 import 'package:flutter_firebase/Components/textfield.dart';
 import 'package:flutter_firebase/forget_password_screen.dart';
-import 'package:flutter_firebase/ok_screen.dart';
+import 'package:flutter_firebase/home_screen.dart';
 import 'package:flutter_firebase/signup_screen.dart';
 import 'package:flutter_firebase/utilis/toasts.dart';
 import 'package:lottie/lottie.dart';
@@ -45,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() {
         loading = false;
       });
-        Get.to(() => okScreen());
+      Get.to(() => HomeScreen());
     }).onError((error, stackTrace) {
       debugPrint(error.toString());
       Toasts().toastsMessage(error.toString());
@@ -60,38 +60,16 @@ class _LoginScreenState extends State<LoginScreen> {
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: CustomAppBar(title: AppText.loginAppbarText),
+      appBar: const CustomAppBar(
+        title: AppText.loginAppbarText,
+      ),
       body: SingleChildScrollView(
-        
         child: Container(
           child: Column(children: [
-                     SizedBox(height: 10),
-            GestureDetector(
-              onTap: () {
-                Get.to(() => okScreen());
-              },
-                child: Align(
-                   alignment: Alignment.topRight,
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: Container(
-                      width: 50,height: 20,
-                      decoration: BoxDecoration(
-                            color: AppColors.colorGreen,
-                            borderRadius: BorderRadius.circular(5)
-                          ),
-                                child: Center(
-                                  child: Text(
-                                    'skip',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ),
-                              ),
-                  ),
-                )),
+            SizedBox(height: 10),
             Container(
               alignment: Alignment.center,
-              height: 300,
+              height: 200,
               width: screenWidth,
               child: Lottie.asset(AppImages.loginPageImage),
             ),
@@ -108,7 +86,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     }
                     return null;
                   },
-                  prefixIcon: Icon(Icons.email),
+                  prefixIcon: Icon(
+                    Icons.email,
+                    color: AppColors.colorGreen,
+                  ),
                 ),
               ),
             ),
@@ -125,11 +106,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     }
                     return null;
                   },
-                  suffixIcon: Icon(Icons.visibility),
+                  prefixIcon: Icon(
+                    Icons.lock_open,
+                    color: AppColors.colorGreen,
+                  ),
                 ),
               ),
             ),
-          
             GestureDetector(
               onTap: () {
                 Get.to(() => ForgetPasswordScreen());
@@ -138,10 +121,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 alignment: Alignment.bottomRight,
                 child: Padding(
                   padding: const EdgeInsets.all(10),
-                  child: Text('Forget Password?'),
+                  child: Text('Forget Password?' , style: TextStyle(fontSize: 12),),
                 ),
               ),
             ),
+             SizedBox(height: 60),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50),
               child: RoundButton(
@@ -158,7 +142,28 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Container(
                 child: Padding(
                   padding: const EdgeInsets.all(10),
-                  child: Text('Dont have an account SignUp?'),
+                  child: Text('Dont have an account? SignUp'),
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                Get.to(() => HomeScreen());
+              },
+              child: Center(
+                child: Container(
+                  width: 150,
+                  height: 20,
+                  decoration: BoxDecoration(
+                      color: AppColors.colorGreen,
+                      borderRadius: BorderRadius.circular(5)),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 15),
+                    child: Text(
+                      'Go to home screen',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
                 ),
               ),
             ),

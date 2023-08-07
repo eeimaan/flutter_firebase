@@ -20,7 +20,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
 
   void _resetPassword() async {
     if (userEmailController.text.isEmpty) {
-      Toasts().toastsMessage('Please enter your email.');
+      Toasts().toastsMessage('Please enter your email.',false, success: false);
       return;
     }
 
@@ -31,10 +31,10 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
     try {
       await _auth.sendPasswordResetEmail(email: userEmailController.text);
       Toasts().toastsMessage(
-          'Password reset email sent to ${userEmailController.text}.');
+          'Password reset email sent to ${userEmailController.text}.',true, success: true);
     } catch (error) {
       Toasts().toastsMessage(
-          'Failed to send password reset email. Please try again.');
+          'Failed to send password reset email. Please try again.',false, success: false);
     } finally {
       setState(() {
         loading = false;
@@ -45,7 +45,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: AppText.forgetPasswordAppbarText),
+      appBar: const CustomAppBar(title: AppText.forgetPasswordAppbarText,),
       body: Container(
         child: Column(
           children: [
@@ -62,7 +62,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                     }
                     return null;
                   },
-                  suffixIcon: Icon(Icons.email),
+                  prefixIcon: Icon(Icons.email, color: AppColors.colorGreen,),
                 ),
               ),
             ),
@@ -72,28 +72,29 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               child: RoundButton(
                 title: 'Forgot',
                 loading: loading,
-                onTap: ()async {
-                   if (userEmailController.text.isEmpty) {
-      Toasts().toastsMessage('Please enter your email.');
-      return;
-    }
+                onTap: () async {
+                  if (userEmailController.text.isEmpty) {
+                    Toasts().toastsMessage('Please enter your email.',false, success: false);
+                    return;
+                  }
 
-    setState(() {
-      loading = true;
-    });
+                  setState(() {
+                    loading = true;
+                  });
 
-    try {
-      await _auth.sendPasswordResetEmail(email: userEmailController.text);
-      Toasts().toastsMessage(
-          'Password reset email sent to ${userEmailController.text}.');
-    } catch (error) {
-      Toasts().toastsMessage(
-          'Failed to send password reset email. Please try again.');
-    } finally {
-      setState(() {
-        loading = false;
-      });
-    }
+                  try {
+                    await _auth.sendPasswordResetEmail(
+                        email: userEmailController.text);
+                    Toasts().toastsMessage(
+                        'Password reset email sent to ${userEmailController.text}.',true, success: true);
+                  } catch (error) {
+                    Toasts().toastsMessage(
+                        'Failed to send password reset email. Please try again.',false, success: false);
+                  } finally {
+                    setState(() {
+                      loading = false;
+                    });
+                  }
                 },
               ),
             ),
